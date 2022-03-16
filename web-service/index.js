@@ -1,22 +1,13 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
-const axios = require("axios");
-const { StringStream } = require("scramjet");
-const papa = require("papaparse");
+const getLatestCountry = require("./controllers/latestCountryDaily");
+const getLatestState = require("./controllers/latestStateDaily");
 
 (async () => {
-  const req = await axios.get(process.env.COUNTRY_LEVEL_DATA, {
-    responseType: "stream",
-  });
+  const countryDaily = await getLatestCountry();
+  const stateDaily = await getLatestState();
 
-  const data = req.data.pipe(new StringStream());
-
-  papa.parse(data, {
-    header: true,
-    complete: (result) => {
-      const dataSet = result.data;
-      console.log(dataSet[dataSet.length - 1]);
-    },
-  });
+  console.log("Country Daily Data", countryDaily);
+  console.log("State Daily Data", stateDaily);
 })();
