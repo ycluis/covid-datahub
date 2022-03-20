@@ -2,10 +2,14 @@ const axios = require("axios");
 const { StringStream } = require("scramjet");
 const papa = require("papaparse");
 
-const getLatestStateData = async () => {
+const getLatestStateData = async (reqType) => {
   let dataSet = [];
+  let url =
+    reqType === "COV"
+      ? process.env.STATE_COVID_DATA
+      : process.env.STATE_VACC_DATA;
 
-  const req = await axios.get(process.env.STATE_LEVEL_DATA, {
+  const req = await axios.get(url, {
     responseType: "stream",
   });
 

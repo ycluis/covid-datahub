@@ -1,19 +1,18 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
-const getLatestCountry = require("./controllers/latestCountryDaily");
-const getLatestState = require("./controllers/latestStateDaily");
-const getLatestCountryVac = require("./controllers/latestCountryVac");
-const getLatestStateVac = require("./controllers/latestStateVac");
+const getCountryData = require("./controllers/latestCountryData");
+const getStateData = require("./controllers/latestStateData");
 
 (async () => {
-  // const countryDaily = await getLatestCountry();
-  // const stateDaily = await getLatestState();
-  const countryVac = await getLatestCountryVac();
-  const stateVac = await getLatestStateVac();
+  const countryCovData = await getCountryData("COV");
+  const stateCovData = await getStateData("COV");
 
-  // console.log("Country Daily Data", countryDaily);
-  // console.log("State Daily Data", stateDaily);
-  console.log("Country Vac Data", countryVac);
-  console.log("State Vac Data", stateVac);
+  const countryVacData = await getCountryData("VAC");
+  const stateVacData = await getStateData("VAC");
+
+  // console.log("Country Covid Data", countryCovData);
+  // console.log("State Covid Data", stateCovData);
+  // console.log("Country Vacc Data", countryVacData);
+  // console.log("State Vacc Data", stateVacData);
 })();
