@@ -1,6 +1,8 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
+const db = require("./config/db");
+
 const getCountryData = require("./controllers/latestCountryData");
 const getStateData = require("./controllers/latestStateData");
 
