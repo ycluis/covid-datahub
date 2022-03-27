@@ -5,6 +5,7 @@ dotenv.config({ path: __dirname + "/.env" });
 // const getStateData = require("./controllers/latestStateData");
 
 const getFullCountryData = require("./controllers/fullCountryData");
+const getFullStateData = require("./controllers/fullStateData");
 
 (async () => {
   // const countryCovData = await getCountryData("COV");
@@ -14,6 +15,7 @@ const getFullCountryData = require("./controllers/fullCountryData");
   // const stateVacData = await getStateData("VAC");
 
   await getFullCountryData();
+  await getFullStateData();
 
   process.exit();
 })();

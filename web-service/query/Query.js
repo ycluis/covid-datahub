@@ -1,9 +1,20 @@
 const PgClient = require("../config/db");
 
 class Query {
-  async insertFullCountryData(data) {
+  async insertFullCountryData(date, data) {
+    delete data.date;
     await PgClient.CasesMalaysia.query().insert({
-      date: data.date,
+      date,
+      info: JSON.stringify(data),
+    });
+  }
+
+  async insertFullStateData(date, state, data) {
+    delete data.date;
+    delete data.state;
+    await PgClient.CasesState.query().insert({
+      date,
+      state,
       info: JSON.stringify(data),
     });
   }

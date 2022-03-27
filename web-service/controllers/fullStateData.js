@@ -4,9 +4,9 @@ const papa = require("papaparse");
 const Query = require("../query/Query");
 const query = new Query();
 
-const getFullCountryData = async () => {
+const getFullStateData = async () => {
   let dataSet = [];
-  let url = process.env.COUNTRY_COVID_DATA;
+  let url = process.env.STATE_COVID_DATA;
 
   try {
     const req = await axios.get(url, {
@@ -33,13 +33,13 @@ const getFullCountryData = async () => {
     const parsedData = await promise;
 
     for (const data of parsedData) {
-      await query.insertFullCountryData(data.date, data);
+      await query.insertFullStateData(data.date, data.state, data);
     }
   } catch (err) {
     console.log(err);
   } finally {
-    console.log("Country Data inserted successfully");
+    console.log("State Data inserted successfully");
   }
 };
 
-module.exports = getFullCountryData;
+module.exports = getFullStateData;
