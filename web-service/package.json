@@ -12,8 +12,10 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "knex": "^1.0.4",
+    "objection": "^3.0.1",
     "papaparse": "^5.3.1",
     "pg": "^8.7.3",
-    "scramjet": "^4.36.6"
+    "scramjet": "^4.36.6",
+    "pgClient": "file:../pg-client"
   }
 }
