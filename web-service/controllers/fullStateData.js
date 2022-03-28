@@ -33,7 +33,7 @@ const getFullStateData = async () => {
     const parsedData = await promise;
 
     for (const data of parsedData) {
-      await query.insertFullStateData(data.date, data.state, data);
+      await query.insertStateCovData(data.date, data.state, data);
     }
   } catch (err) {
     console.log(err);
