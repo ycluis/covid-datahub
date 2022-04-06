@@ -34,14 +34,18 @@ const getLatestCountryData = async (reqType) => {
     });
 
     const parsedData = await promise;
+    return {
+      date: parsedData.date,
+      data: parsedData,
+    };
 
-    const latestDate = await query.getLatestCountryCovData();
+    // const latestDate = await query.getLatestCountryCovData();
 
-    if (latestDate.date !== parsedData.date) {
-      await query.insertCountryCovData(parsedData.date, parsedData);
-    } else {
-      console.log("Duplicated data found. Skip");
-    }
+    // if (latestDate.date !== parsedData.date) {
+    //   await query.insertCountryCovData(parsedData.date, parsedData);
+    // } else {
+    //   console.log("Duplicated data found. Skip");
+    // }
   } catch (err) {
     console.log(err);
   } finally {

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Luis yChun",
@@ -15,7 +16,8 @@
     "objection": "^3.0.1",
     "papaparse": "^5.3.1",
     "pg": "^8.7.3",
-    "scramjet": "^4.36.6",
-    "pgClient": "file:../pg-client"
+    "pgClient": "file:../pg-client",
+    "redis": "^4.0.6",
+    "scramjet": "^4.36.6"
   }
 }
