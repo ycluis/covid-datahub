@@ -1,21 +1,57 @@
 const { createClient } = require("redis");
 
-const redisConn = async (data) => {
-  const client = createClient({
-    url: process.env.REDIS_CLIENT,
-  });
+const redisConn = async (dataDate, data, reqType) => {
+  try {
+    let keyHeader = "";
+    let redisFormatData;
 
-  client.on("error", (err) => console.log("Redis Client Error", err));
+    switch (reqType) {
+      case process.env.COUNTRY_COVID_LATEST:
+        keyHeader = `C:Country:Latest`;
+        redisFormatData = { ...data };
+        delete redisFormatData.date;
+        break;
+      case process.env.COUNTRY_COVID_ALL:
+        keyHeader = `C:Country:All`;
+        break;
+      case process.env.COUNTRY_VACC_LATEST:
+        keyHeader = `V:Country:Latest`;
+        break;
+      case process.env.COUNTRY_VACC_ALL:
+        keyHeader = `V:Country:All`;
+        break;
+      case process.env.STATE_COVID_LATEST:
+        keyHeader = `C:State:Latest`;
+        redisFormatData = [...data];
+        for (const i of redisFormatData) {
+          delete i.date;
+        }
+        break;
+      case process.env.STATE_COVID_ALL:
+        keyHeader = `C:State:All`;
+        break;
+      case process.env.STATE_VACC_LATEST:
+        keyHeader = `V:State:Latest`;
+        break;
+      case process.env.STATE_VACC_ALL:
+        keyHeader = `V:State:All`;
+        break;
+    }
 
-  await client.connect();
+    const client = createClient({
+      url: process.env.REDIS_CLIENT,
+    });
 
-  await client.json.set(`V:Country:${data.date}`, "$", data.data);
-  // const value = await client.get("key");
+    client.on("error", (err) => console.log("Redis Client Error", err));
 
-  const results = await client.json.get(`V:Country:${data.date}`);
+    await client.connect();
 
-  console.log(results);
-  // console.log("OK");
+    await client.json.set(`${keyHeader}:${dataDate}`, "$", redisFormatData);
+
+    console.log(`${reqType} redis completed`);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = redisConn;

@@ -3,24 +3,21 @@ dotenv.config({ path: __dirname + "/.env" });
 
 const redisConn = require("./config/redisClient");
 
-const getCountryData = require("./controllers/latestCountryData");
-const getStateData = require("./controllers/latestStateData");
+const getLatestCountryData = require("./controllers/latestCountryData");
+const getLatestStateData = require("./controllers/latestStateData");
 
-const getFullCountryData = require("./controllers/fullCountryData");
-const getFullStateData = require("./controllers/fullStateData");
+// const getFullCountryData = require("./controllers/fullCountryData");
+// const getFullStateData = require("./controllers/fullStateData");
 
 (async () => {
-  const countryCovData = await getCountryData("COV");
-  // const stateCovData = await getStateData("COV");
+  try {
+    await getLatestCountryData("COV");
+    await getLatestStateData("COV");
 
-  // const countryVacData = await getCountryData("VAC");
-  // const stateVacData = await getStateData("VAC");
-
-  // await getFullCountryData();
-  // await getFullStateData();
-
-  //* Redis conn
-  await redisConn(countryCovData);
-
-  process.exit();
+    console.log(`Postgres & Redis Insert Completed...`);
+    process.exit();
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
 })();

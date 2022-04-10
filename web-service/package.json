@@ -1,11 +1,10 @@
 {
-  "name": "web-service",
+  "name": "my-covid-info-web-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index"
   },
   "author": "Luis yChun",
   "license": "ISC",

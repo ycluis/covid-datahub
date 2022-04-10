@@ -2,20 +2,22 @@ const PgClient = require("../config/db");
 
 class Query {
   async insertCountryCovData(date, data) {
-    delete data.date;
+    const dataMir = { ...data };
+    delete dataMir.date;
     await PgClient.CasesMalaysia.query().insert({
       date,
-      info: JSON.stringify(data),
+      info: JSON.stringify(dataMir),
     });
   }
 
   async insertStateCovData(date, state, data) {
-    delete data.date;
-    delete data.state;
+    const dataMir = { ...data };
+    delete dataMir.date;
+    delete dataMir.state;
     await PgClient.CasesState.query().insert({
       date,
       state,
-      info: JSON.stringify(data),
+      info: JSON.stringify(dataMir),
     });
   }
 
@@ -23,6 +25,12 @@ class Query {
     const latestDataSet = await PgClient.CasesMalaysia.query().max("id");
 
     return PgClient.CasesMalaysia.query().findById(latestDataSet[0].max);
+  }
+
+  async getLatestStateCovData() {
+    const latestDataSet = await PgClient.CasesState.query().max("id");
+
+    return PgClient.CasesState.query().findById(latestDataSet[0].max);
   }
 }
 

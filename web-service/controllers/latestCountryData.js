@@ -3,6 +3,7 @@ const { StringStream } = require("scramjet");
 const papa = require("papaparse");
 const Query = require("../query/Query");
 const query = new Query();
+const redisConn = require("../config/redisClient");
 
 const getLatestCountryData = async (reqType) => {
   let dataSet = [];
@@ -34,22 +35,23 @@ const getLatestCountryData = async (reqType) => {
     });
 
     const parsedData = await promise;
-    return {
-      date: parsedData.date,
-      data: parsedData,
-    };
 
-    // const latestDate = await query.getLatestCountryCovData();
+    // Postgres Insert
+    const latestDate = await query.getLatestCountryCovData();
 
-    // if (latestDate.date !== parsedData.date) {
-    //   await query.insertCountryCovData(parsedData.date, parsedData);
-    // } else {
-    //   console.log("Duplicated data found. Skip");
-    // }
+    if (latestDate === undefined || latestDate.date !== parsedData.date) {
+      await query.insertCountryCovData(parsedData.date, parsedData);
+    }
+
+    // Redis Insert
+    await redisConn(
+      parsedData.date,
+      parsedData,
+      process.env.COUNTRY_COVID_LATEST
+    );
   } catch (err) {
     console.log(err);
   } finally {
-    console.log("Country data handler completed");
   }
 };
 
