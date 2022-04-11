@@ -3,6 +3,7 @@ const { StringStream } = require("scramjet");
 const papa = require("papaparse");
 const Query = require("../query/Query");
 const query = new Query();
+const redisConn = require("../config/redisClient");
 
 const getFullCountryData = async () => {
   let dataSet = [];
@@ -32,13 +33,27 @@ const getFullCountryData = async () => {
 
     const parsedData = await promise;
 
-    for (const data of parsedData) {
-      await query.insertFullCountryData(data.date, data);
+    // Postgres Insert
+    const latestDate = await query.getLatestCountryCovData();
+
+    if (
+      latestDate === undefined ||
+      latestDate.date !== parsedData[parsedData.length - 1].date
+    ) {
+      for (const data of parsedData) {
+        await query.insertCountryCovData(data.date, data);
+      }
     }
+
+    // Redis Insert
+    await redisConn(
+      parsedData[0].date,
+      parsedData,
+      process.env.COUNTRY_COVID_ALL
+    );
   } catch (err) {
     console.log(err);
   } finally {
-    console.log("Country Data inserted successfully");
   }
 };
 

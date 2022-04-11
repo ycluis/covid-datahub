@@ -13,6 +13,10 @@ const redisConn = async (dataDate, data, reqType) => {
         break;
       case process.env.COUNTRY_COVID_ALL:
         keyHeader = `C:Country:All`;
+        redisFormatData = [...data];
+        for (const i of redisFormatData) {
+          delete i.date;
+        }
         break;
       case process.env.COUNTRY_VACC_LATEST:
         keyHeader = `V:Country:Latest`;
@@ -29,6 +33,10 @@ const redisConn = async (dataDate, data, reqType) => {
         break;
       case process.env.STATE_COVID_ALL:
         keyHeader = `C:State:All`;
+        redisFormatData = [...data];
+        for (const i of redisFormatData) {
+          delete i.date;
+        }
         break;
       case process.env.STATE_VACC_LATEST:
         keyHeader = `V:State:Latest`;
@@ -48,7 +56,7 @@ const redisConn = async (dataDate, data, reqType) => {
 
     await client.json.set(`${keyHeader}:${dataDate}`, "$", redisFormatData);
 
-    console.log(`${reqType} redis completed`);
+    console.log(`${reqType} completed`);
   } catch (err) {
     console.log(err);
   }
