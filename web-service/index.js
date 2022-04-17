@@ -9,9 +9,13 @@ const getFullStateData = require("./controllers/fullStateData");
 
 (async () => {
   try {
-    // Get full set data
-    // await getFullCountryData();
-    // await getFullStateData();
+    // Get full set covid case data
+    await getFullCountryData(process.env.COVID_SYMBOL);
+    await getFullStateData(process.env.COVID_SYMBOL);
+
+    // Get full set vacc data
+    await getFullCountryData(process.env.VACC_SYMBOL);
+    await getFullStateData(process.env.VACC_SYMBOL);
 
     // Get latest covid case data
     await getLatestCountryData(process.env.COVID_SYMBOL);

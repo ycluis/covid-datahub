@@ -5,9 +5,12 @@ const Query = require("../query/Query");
 const query = new Query();
 const redisConn = require("../config/redisClient");
 
-const getFullCountryData = async () => {
+const getFullCountryData = async (reqType) => {
   let dataSet = [];
-  let url = process.env.COUNTRY_COVID_DATA;
+  let url =
+    reqType === process.env.COVID_SYMBOL
+      ? process.env.COUNTRY_COVID_DATA_URL
+      : process.env.COUNTRY_VACC_DATA_URL;
 
   try {
     const req = await axios.get(url, {
@@ -34,23 +37,40 @@ const getFullCountryData = async () => {
     const parsedData = await promise;
 
     // Postgres Insert
-    const latestDate = await query.getLatestCountryCovData();
+    const latestDate =
+      reqType === process.env.COVID_SYMBOL
+        ? await query.getLatestCountryCovData()
+        : await query.getLatestCountryVaccData();
 
     if (
       latestDate === undefined ||
       latestDate.date !== parsedData[parsedData.length - 1].date
     ) {
-      for (const data of parsedData) {
-        await query.insertCountryCovData(data.date, data);
+      if (reqType === process.env.COVID_SYMBOL) {
+        for (const data of parsedData) {
+          await query.insertCountryCovData(data.date, data);
+        }
+      } else {
+        for (const data of parsedData) {
+          await query.insertCountryVaccData(data.date, data);
+        }
       }
     }
 
     // Redis Insert
-    await redisConn(
-      parsedData[0].date,
-      parsedData,
-      process.env.COUNTRY_COVID_ALL
-    );
+    if (reqType === process.env.COVID_SYMBOL) {
+      await redisConn(
+        parsedData[0].date,
+        parsedData,
+        process.env.COUNTRY_COVID_ALL
+      );
+    } else {
+      await redisConn(
+        parsedData[0].date,
+        parsedData,
+        process.env.COUNTRY_VACC_ALL
+      );
+    }
   } catch (err) {
     console.log(err);
   } finally {

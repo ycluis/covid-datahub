@@ -25,6 +25,10 @@ const redisConn = async (dataDate, data, reqType) => {
         break;
       case process.env.COUNTRY_VACC_ALL:
         keyHeader = `V:Country:All`;
+        redisFormatData = [...data];
+        for (const i of redisFormatData) {
+          delete i.date;
+        }
         break;
       case process.env.STATE_COVID_LATEST:
         keyHeader = `C:State:Latest`;
@@ -49,6 +53,10 @@ const redisConn = async (dataDate, data, reqType) => {
         break;
       case process.env.STATE_VACC_ALL:
         keyHeader = `V:State:All`;
+        redisFormatData = [...data];
+        for (const i of redisFormatData) {
+          delete i.date;
+        }
         break;
     }
 
