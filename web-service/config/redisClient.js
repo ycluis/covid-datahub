@@ -60,8 +60,16 @@ const redisConn = async (dataDate, data, reqType) => {
         break;
     }
 
+    const env = process.env.NODE_ENV || "local";
+    const url =
+      env === "local"
+        ? process.env.REDIS_CLIENT_LOCAL
+        : env === "development"
+        ? process.env.REDIS_CLIENT_DEV
+        : process.env.REDIS_CLIENT_PROD;
+
     const client = createClient({
-      url: process.env.REDIS_CLIENT,
+      url,
     });
 
     client.on("error", (err) => console.log("Redis Client Error", err));
