@@ -60,13 +60,13 @@ const getFullCountryData = async (reqType) => {
     // Redis Insert
     if (reqType === process.env.COVID_SYMBOL) {
       await redisConn(
-        parsedData[0].date,
+        parsedData[parsedData.length - 1].date,
         parsedData,
         process.env.COUNTRY_COVID_ALL
       );
     } else {
       await redisConn(
-        parsedData[0].date,
+        parsedData[parsedData.length - 1].date,
         parsedData,
         process.env.COUNTRY_VACC_ALL
       );

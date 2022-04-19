@@ -1,8 +1,8 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
-const getFullDataSet = require("./insertFullDataSet");
-const getLatestDataSet = require("./insertLatestDataSet");
+const getFullDataSet = require("./getFullDataSet");
+const getLatestDataSet = require("./getLatestDataSet");
 
 (async () => {
   try {

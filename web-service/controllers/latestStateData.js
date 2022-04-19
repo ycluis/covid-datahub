@@ -57,13 +57,13 @@ const getLatestStateData = async (reqType) => {
     // Redis Insert
     if (reqType === process.env.COVID_SYMBOL) {
       await redisConn(
-        parsedData[0].date,
+        parsedData[parsedData.length - 1].date,
         parsedData,
         process.env.STATE_COVID_LATEST
       );
     } else {
       await redisConn(
-        parsedData[0].date,
+        parsedData[parsedData.length - 1].date,
         parsedData,
         process.env.STATE_VACC_LATEST
       );
