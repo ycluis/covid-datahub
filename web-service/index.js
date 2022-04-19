@@ -1,15 +1,16 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: __dirname + "/.env" });
 
-const getFullDataSet = require("./getFullDataSet");
 const getLatestDataSet = require("./getLatestDataSet");
+const getFullDataSet = require("./getFullDataSet");
 
 (async () => {
   try {
-    await getFullDataSet();
     await getLatestDataSet();
 
-    console.log(`Postgres & Redis insert done. Exit...`);
+    await getFullDataSet();
+
+    console.log(`Service completed. Status OK.`);
     process.exit();
   } catch (err) {
     console.log(err);

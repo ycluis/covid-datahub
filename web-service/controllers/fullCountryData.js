@@ -42,10 +42,7 @@ const getFullCountryData = async (reqType) => {
         ? await query.getLatestCountryCovData()
         : await query.getLatestCountryVaccData();
 
-    if (
-      latestDate === undefined ||
-      latestDate.date !== parsedData[parsedData.length - 1].date
-    ) {
+    if (latestDate === undefined) {
       if (reqType === process.env.COVID_SYMBOL) {
         for (const data of parsedData) {
           await query.insertCountryCovData(data.date, data);
