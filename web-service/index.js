@@ -6,9 +6,8 @@ const getFullDataSet = require("./getFullDataSet");
 
 (async () => {
   try {
-    await getLatestDataSet();
-
     await getFullDataSet();
+    await getLatestDataSet();
 
     console.log(`Service completed. Status OK.`);
     process.exit();

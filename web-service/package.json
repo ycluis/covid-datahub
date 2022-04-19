@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index",
+    "dev": "NODE_ENV=development node index"
   },
   "author": "Luis yChun",
   "license": "ISC",
