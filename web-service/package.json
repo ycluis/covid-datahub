@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "NODE_ENV=development node index"
+    "dev": "NODE_ENV=development node index",
+    "prod": "NODE_ENV=production node index"
   },
   "author": "Luis yChun",
   "license": "ISC",
