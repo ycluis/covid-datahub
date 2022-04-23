@@ -9,7 +9,6 @@ const getFullDataSet = require("./getFullDataSet");
     await getFullDataSet();
     await getLatestDataSet();
 
-    console.log(`Service completed. Status OK.`);
     process.exit();
   } catch (err) {
     console.log(err);

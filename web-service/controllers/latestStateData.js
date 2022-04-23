@@ -36,6 +36,12 @@ const getLatestStateData = async (reqType) => {
 
     const parsedData = await promise;
 
+    console.log(
+      `Latest available data set ${reqType}-[STATE]: ${
+        parsedData[parsedData.length - 1].date
+      }`
+    );
+
     // Postgres Insert
     const latestDate =
       reqType === process.env.COVID_SYMBOL

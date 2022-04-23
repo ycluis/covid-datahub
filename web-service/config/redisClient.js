@@ -85,10 +85,13 @@ const redisConn = async (dataDate, data, reqType) => {
 
     await client.connect();
 
-    await client.json.set(`${keyHeader}:${dataDate}`, "$", redisFormatData);
+    await client.json.set(`${keyHeader}:${dataDate}`, "$", redisFormatData, {
+      NX: true,
+    });
 
-    // expire after 48 hour
-    await client.expireAt(`${keyHeader}:${dataDate}`, keyExpireAt);
+    if ((await client.ttl(`${keyHeader}:${dataDate}`)) === -1) {
+      await client.expireAt(`${keyHeader}:${dataDate}`, keyExpireAt);
+    }
 
     console.log(`${reqType} completed`);
   } catch (err) {
