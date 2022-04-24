@@ -1,0 +1,22 @@
+{
+  "name": "my-covid-info",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm run watch --prefix server",
+    "client": "npm start --prefix client",
+    "watch": "npm run server & npm run client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ycluis/my-covid-info.git"
+  },
+  "keywords": [],
+  "author": "Luis yChun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ycluis/my-covid-info/issues"
+  },
+  "homepage": "https://github.com/ycluis/my-covid-info#readme"
+}
