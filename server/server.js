@@ -6,7 +6,9 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 const startServer = async () => {
-  server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+  server.listen(PORT, () =>
+    console.log(`Server listening on port ${PORT}`.cyan.underline)
+  );
 };
 
 startServer();

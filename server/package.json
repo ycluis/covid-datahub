@@ -11,8 +11,12 @@
   "author": "Luis yChun",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "morgan": "^1.10.0"
+    "express-async-handler": "^1.2.0",
+    "morgan": "^1.10.0",
+    "pgClient": "file:../pg-client"
   }
 }
