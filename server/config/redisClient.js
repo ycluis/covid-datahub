@@ -1,71 +1,22 @@
 const { createClient } = require("redis");
 
-const redisConn = async (dataDate, data, reqType) => {
+const redisConn = async (reqType, dateDate) => {
   try {
-    let keyHeader = "";
+    let keyHeader;
     let redisFormatData;
-    let keyExpireAt;
 
     switch (reqType) {
-      case process.env.COUNTRY_COVID_LATEST:
-        keyHeader = `C:Country:Latest`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 172800;
-        redisFormatData = { ...data };
-        delete redisFormatData.date;
+      case "malaysia_active":
+        keyHeader = `C:Country:Latest:${dateDate}`;
         break;
-      case process.env.COUNTRY_COVID_ALL:
-        keyHeader = `C:Country:All`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 86400;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
+      case "state_active":
+        keyHeader = `C:State:Latest:${dateDate}`;
         break;
-      case process.env.COUNTRY_VACC_LATEST:
-        keyHeader = `V:Country:Latest`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 172800;
-        redisFormatData = { ...data };
-        delete redisFormatData.date;
+      case "malaysia_vacc":
+        keyHeader = `V:Country:Latest:${dateDate}`;
         break;
-      case process.env.COUNTRY_VACC_ALL:
-        keyHeader = `V:Country:All`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 86400;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
-        break;
-      case process.env.STATE_COVID_LATEST:
-        keyHeader = `C:State:Latest`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 172800;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
-        break;
-      case process.env.STATE_COVID_ALL:
-        keyHeader = `C:State:All`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 86400;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
-        break;
-      case process.env.STATE_VACC_LATEST:
-        keyHeader = `V:State:Latest`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 172800;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
-        break;
-      case process.env.STATE_VACC_ALL:
-        keyHeader = `V:State:All`;
-        keyExpireAt = parseInt(+new Date() / 1000) + 86400;
-        redisFormatData = [...data];
-        for (const i of redisFormatData) {
-          delete i.date;
-        }
+      case "state_vacc":
+        keyHeader = `V:State:Latest:${dateDate}`;
         break;
     }
 
@@ -85,15 +36,7 @@ const redisConn = async (dataDate, data, reqType) => {
 
     await client.connect();
 
-    await client.json.set(`${keyHeader}:${dataDate}`, "$", redisFormatData, {
-      NX: true,
-    });
-
-    if ((await client.ttl(`${keyHeader}:${dataDate}`)) === -1) {
-      await client.expireAt(`${keyHeader}:${dataDate}`, keyExpireAt);
-    }
-
-    console.log(`${reqType} completed`);
+    return await client.json.get(keyHeader);
   } catch (err) {
     console.log(err);
   }

@@ -1,6 +1,31 @@
 const PgClient = require("../config/db");
 
 class Query {
+  async getLatestDataSetDate(reqType) {
+    switch (reqType) {
+      case "malaysia_active":
+        return PgClient.CasesMalaysia.query()
+          .select("date")
+          .orderBy("id", "desc")
+          .limit(1);
+      case "malaysia_vacc":
+        return PgClient.VaccMalaysia.query()
+          .select("date")
+          .orderBy("id", "desc")
+          .limit(1);
+      case "state_active":
+        return PgClient.CasesState.query()
+          .select("date")
+          .orderBy("id", "desc")
+          .limit(1);
+      case "state_vacc":
+        return PgClient.VaccState.query()
+          .select("date")
+          .orderBy("id", "desc")
+          .limit(1);
+    }
+  }
+
   async getLatestCountryActiveCase() {
     const maxId = await PgClient.CasesMalaysia.query().max("id");
 
