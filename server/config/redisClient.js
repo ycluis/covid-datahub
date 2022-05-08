@@ -3,7 +3,6 @@ const { createClient } = require("redis");
 const redisConn = async (reqType, dateDate) => {
   try {
     let keyHeader;
-    let redisFormatData;
 
     switch (reqType) {
       case "malaysia_active":
