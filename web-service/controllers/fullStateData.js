@@ -55,19 +55,19 @@ const getFullStateData = async (reqType) => {
     }
 
     // Redis Insert
-    if (reqType === process.env.COVID_SYMBOL) {
-      await redisConn(
-        parsedData[parsedData.length - 1].date,
-        parsedData,
-        process.env.STATE_COVID_ALL
-      );
-    } else {
-      await redisConn(
-        parsedData[parsedData.length - 1].date,
-        parsedData,
-        process.env.STATE_VACC_ALL
-      );
-    }
+    // if (reqType === process.env.COVID_SYMBOL) {
+    //   await redisConn(
+    //     parsedData[parsedData.length - 1].date,
+    //     parsedData,
+    //     process.env.STATE_COVID_ALL
+    //   );
+    // } else {
+    //   await redisConn(
+    //     parsedData[parsedData.length - 1].date,
+    //     parsedData,
+    //     process.env.STATE_VACC_ALL
+    //   );
+    // }
   } catch (err) {
     console.log(err);
   } finally {
