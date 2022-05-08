@@ -75,6 +75,54 @@ class Query {
       .select("date", "state", "info", "createdat")
       .findById(maxId[0].max);
   }
+
+  async getTotalItemCount(dataSet, option) {
+    switch (dataSet) {
+      case "malaysia_active":
+        return PgClient.CasesMalaysia.query().count("*");
+      case "state_active":
+        return PgClient.CasesState.query()
+          .count("*")
+          .where("state", "ILIKE", `%${option.stateName}%`);
+    }
+  }
+
+  async getHistoricalCountryActiveCase(option) {
+    const { limit, offset } = option;
+
+    const builder = PgClient.CasesMalaysia.query()
+      .select("date", "info", "createdat")
+      .orderBy("id", "desc");
+
+    if (offset !== null) {
+      builder.offset(offset);
+    }
+
+    if (limit !== null) {
+      builder.limit(limit);
+    }
+
+    return builder;
+  }
+
+  async getHistoricalStateActiveCase(option) {
+    const { stateName, limit, offset } = option;
+
+    const builder = PgClient.CasesState.query()
+      .select("date", "state", "info", "createdat")
+      .orderBy("id", "desc")
+      .where("state", "ILIKE", `%${stateName}%`);
+
+    if (offset !== null) {
+      builder.offset(offset);
+    }
+
+    if (limit !== null) {
+      builder.limit(limit);
+    }
+
+    return builder;
+  }
 }
 
 module.exports = Query;

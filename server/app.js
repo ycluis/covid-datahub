@@ -9,6 +9,7 @@ const path = require("path");
 
 const activeCaseRouter = require("./routes/active/active.router");
 const vaccinateRouter = require("./routes/vaccinate/vaccinate.router");
+const historicalRouter = require("./routes/historical/historical.router");
 const errorHandler = require("./middlewares/errorMiddleware");
 
 const app = express();
@@ -16,11 +17,12 @@ app.use(cors());
 app.use(morgan("combined"));
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, "..", "client/public")));
+// app.use(express.static(path.join(__dirname, "../client/build")));
 
 // router
 app.use("/api/v1/active", activeCaseRouter);
 app.use("/api/v1/vaccinate", vaccinateRouter);
+app.use("/api/v1/historical", historicalRouter);
 app.use(errorHandler);
 
 module.exports = app;

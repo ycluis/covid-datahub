@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon server.js",
+    "dev": "NODE_ENV=development nodemon server.js",
     "start": "node server.js"
   },
   "keywords": [],
