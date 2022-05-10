@@ -1,9 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Query = require("../../query/Query");
 const query = new Query();
-const redisConn = require("../../config/redisClient");
 
-const getHistoricalStateData = asyncHandler(async (req, res) => {
+const getHistoricalActiveVaccData = asyncHandler(async (req, res) => {
   const { page, pageSize } = req.query;
   const { stateName } = req.params;
 
@@ -16,11 +15,16 @@ const getHistoricalStateData = asyncHandler(async (req, res) => {
   const offset =
     page === null || pageSize === null ? null : (page - 1) * pageSize;
 
-  const totalItems = await query.getTotalItemCount("state_active", {
+  const totalItems = await query.getTotalItemCount("state_vacc", {
     stateName,
   });
 
-  const data = await query.getHistoricalStateActiveCase({
+  if (totalItems[0].count < 1) {
+    res.status(404);
+    throw Error("Invalid params");
+  }
+
+  const data = await query.getHistoricalStateVacc({
     stateName,
     limit,
     offset,
@@ -38,4 +42,4 @@ const getHistoricalStateData = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = getHistoricalStateData;
+module.exports = getHistoricalActiveVaccData;

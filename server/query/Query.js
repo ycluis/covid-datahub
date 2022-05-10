@@ -84,6 +84,12 @@ class Query {
         return PgClient.CasesState.query()
           .count("*")
           .where("state", "ILIKE", `%${option.stateName}%`);
+      case "malaysia_vacc":
+        return PgClient.VaccMalaysia.query().count("*");
+      case "state_vacc":
+        return PgClient.VaccState.query()
+          .count("*")
+          .where("state", "ILIKE", `%${option.stateName}%`);
     }
   }
 
@@ -109,6 +115,43 @@ class Query {
     const { stateName, limit, offset } = option;
 
     const builder = PgClient.CasesState.query()
+      .select("date", "state", "info", "createdat")
+      .orderBy("id", "desc")
+      .where("state", "ILIKE", `%${stateName}%`);
+
+    if (offset !== null) {
+      builder.offset(offset);
+    }
+
+    if (limit !== null) {
+      builder.limit(limit);
+    }
+
+    return builder;
+  }
+
+  async getHistoricalCountryVacc(option) {
+    const { limit, offset } = option;
+
+    const builder = PgClient.VaccMalaysia.query()
+      .select("date", "info", "createdat")
+      .orderBy("id", "desc");
+
+    if (offset !== null) {
+      builder.offset(offset);
+    }
+
+    if (limit !== null) {
+      builder.limit(limit);
+    }
+
+    return builder;
+  }
+
+  async getHistoricalStateVacc(option) {
+    const { stateName, limit, offset } = option;
+
+    const builder = PgClient.VaccState.query()
       .select("date", "state", "info", "createdat")
       .orderBy("id", "desc")
       .where("state", "ILIKE", `%${stateName}%`);

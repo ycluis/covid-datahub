@@ -1,9 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Query = require("../../query/Query");
 const query = new Query();
-const redisConn = require("../../config/redisClient");
 
-const getHistoricalCountryData = asyncHandler(async (req, res) => {
+const getHistoricalVaccCountryData = asyncHandler(async (req, res) => {
   const { page, pageSize } = req.query;
 
   if (!page || !pageSize) {
@@ -15,9 +14,9 @@ const getHistoricalCountryData = asyncHandler(async (req, res) => {
   const offset =
     page === null || pageSize === null ? null : (page - 1) * pageSize;
 
-  const totalItems = await query.getTotalItemCount("malaysia_active", {});
+  const totalItems = await query.getTotalItemCount("malaysia_vacc", {});
 
-  const data = await query.getHistoricalCountryActiveCase({ limit, offset });
+  const data = await query.getHistoricalCountryVacc({ limit, offset });
 
   res.status(200).json({
     success: true,
@@ -31,4 +30,4 @@ const getHistoricalCountryData = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = getHistoricalCountryData;
+module.exports = getHistoricalVaccCountryData;
