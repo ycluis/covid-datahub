@@ -94,74 +94,90 @@ class Query {
   }
 
   async getHistoricalCountryActiveCase(option) {
-    const { limit, offset } = option;
+    const { limit, offset, date } = option;
 
     const builder = PgClient.CasesMalaysia.query()
       .select("date", "info", "createdat")
       .orderBy("id", "desc");
 
-    if (offset !== null) {
+    if (offset !== undefined) {
       builder.offset(offset);
     }
 
-    if (limit !== null) {
+    if (limit !== undefined) {
       builder.limit(limit);
+    }
+
+    if (date !== undefined) {
+      builder.where("date", date);
     }
 
     return builder;
   }
 
   async getHistoricalStateActiveCase(option) {
-    const { stateName, limit, offset } = option;
+    const { stateName, limit, offset, date } = option;
 
     const builder = PgClient.CasesState.query()
       .select("date", "state", "info", "createdat")
       .orderBy("id", "desc")
       .where("state", "ILIKE", `%${stateName}%`);
 
-    if (offset !== null) {
+    if (offset !== undefined) {
       builder.offset(offset);
     }
 
-    if (limit !== null) {
+    if (limit !== undefined) {
       builder.limit(limit);
+    }
+
+    if (date !== undefined) {
+      builder.where("date", date);
     }
 
     return builder;
   }
 
   async getHistoricalCountryVacc(option) {
-    const { limit, offset } = option;
+    const { limit, offset, date } = option;
 
     const builder = PgClient.VaccMalaysia.query()
       .select("date", "info", "createdat")
       .orderBy("id", "desc");
 
-    if (offset !== null) {
+    if (offset !== undefined) {
       builder.offset(offset);
     }
 
-    if (limit !== null) {
+    if (limit !== undefined) {
       builder.limit(limit);
+    }
+
+    if (date !== undefined) {
+      builder.where("date", date);
     }
 
     return builder;
   }
 
   async getHistoricalStateVacc(option) {
-    const { stateName, limit, offset } = option;
+    const { stateName, limit, offset, date } = option;
 
     const builder = PgClient.VaccState.query()
       .select("date", "state", "info", "createdat")
       .orderBy("id", "desc")
       .where("state", "ILIKE", `%${stateName}%`);
 
-    if (offset !== null) {
+    if (offset !== undefined) {
       builder.offset(offset);
     }
 
-    if (limit !== null) {
+    if (limit !== undefined) {
       builder.limit(limit);
+    }
+
+    if (date !== undefined) {
+      builder.where("date", date);
     }
 
     return builder;
