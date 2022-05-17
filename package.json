@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "npm run watch --prefix server",
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
     "client": "npm start --prefix client",
-    "watch": "npm run server & npm run client"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ycluis/my-covid-info/issues"
   },
-  "homepage": "https://github.com/ycluis/my-covid-info#readme"
+  "homepage": "https://github.com/ycluis/my-covid-info#readme",
+  "dependencies": {
+    "concurrently": "^7.2.0"
+  }
 }
