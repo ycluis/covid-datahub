@@ -15,19 +15,22 @@ const getHistoricalVaccCountryData = asyncHandler(async (req, res) => {
     page === null || pageSize === null ? null : (page - 1) * pageSize;
 
   if (!date) {
-    const totalItems = await query.getTotalItemCount("malaysia_vacc", {});
+    // const totalItems = await query.getTotalItemCount("malaysia_vacc", {});
 
-    const data = await query.getHistoricalCountryVacc({ limit, offset });
+    const [total, models] = await query.getHistoricalCountryVacc({
+      limit,
+      offset,
+    });
 
     res.status(200).json({
       success: true,
       pages: {
         pageSize,
         pageNumber: page,
-        totalItems: totalItems[0].count,
-        totalPage: Math.ceil(totalItems[0].count / pageSize),
+        totalItems: total,
+        totalPage: Math.ceil(total / pageSize),
       },
-      data,
+      data: models,
     });
   } else {
     const data = await query.getHistoricalCountryVacc({ date });

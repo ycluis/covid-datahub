@@ -100,6 +100,8 @@ class Query {
       .select("date", "info", "createdat")
       .orderBy("id", "desc");
 
+    const totalItem = builder.resultSize();
+
     if (offset !== undefined) {
       builder.offset(offset);
     }
@@ -110,9 +112,10 @@ class Query {
 
     if (date !== undefined) {
       builder.where("date", date);
+      return builder;
     }
 
-    return builder;
+    return await Promise.all([totalItem, builder]);
   }
 
   async getHistoricalStateActiveCase(option) {
@@ -123,6 +126,8 @@ class Query {
       .orderBy("id", "desc")
       .where("state", "ILIKE", `%${stateName}%`);
 
+    const totalItem = builder.resultSize();
+
     if (offset !== undefined) {
       builder.offset(offset);
     }
@@ -133,9 +138,10 @@ class Query {
 
     if (date !== undefined) {
       builder.where("date", date);
+      return builder;
     }
 
-    return builder;
+    return await Promise.all([totalItem, builder]);
   }
 
   async getHistoricalCountryVacc(option) {
@@ -145,6 +151,8 @@ class Query {
       .select("date", "info", "createdat")
       .orderBy("id", "desc");
 
+    const totalItem = builder.resultSize();
+
     if (offset !== undefined) {
       builder.offset(offset);
     }
@@ -155,9 +163,10 @@ class Query {
 
     if (date !== undefined) {
       builder.where("date", date);
+      return builder;
     }
 
-    return builder;
+    return await Promise.all([totalItem, builder]);
   }
 
   async getHistoricalStateVacc(option) {
@@ -168,6 +177,8 @@ class Query {
       .orderBy("id", "desc")
       .where("state", "ILIKE", `%${stateName}%`);
 
+    const totalItem = builder.resultSize();
+
     if (offset !== undefined) {
       builder.offset(offset);
     }
@@ -178,9 +189,10 @@ class Query {
 
     if (date !== undefined) {
       builder.where("date", date);
+      return builder;
     }
 
-    return builder;
+    return await Promise.all([totalItem, builder]);
   }
 }
 
