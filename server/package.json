@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "nodemon server.js",
     "dev": "NODE_ENV=development nodemon server.js",
+    "remote-dev": "NODE_ENV=development node server.js",
     "start": "node server.js"
   },
   "keywords": [],
