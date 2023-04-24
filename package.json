@@ -1,5 +1,5 @@
 {
-  "name": "my-covid-info",
+  "name": "my-covid-datahub",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,20 +7,29 @@
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ycluis/my-covid-info.git"
+    "url": "git+https://github.com/ycluis/my-covid-datahub.git"
   },
   "keywords": [],
   "author": "Luis yChun",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ycluis/my-covid-info/issues"
+    "url": "https://github.com/ycluis/my-covid-datahub/issues"
   },
-  "homepage": "https://github.com/ycluis/my-covid-info#readme",
+  "homepage": "https://github.com/ycluis/my-covid-datahub#readme",
   "dependencies": {
     "concurrently": "^7.2.0"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
