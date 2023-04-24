@@ -1,6 +1,6 @@
 module.exports = {
-  CasesMalaysia: "",
-  CasesState: "",
-  VaccMalaysia: "",
-  VaccState: "",
-};
+  CasesMalaysia: '',
+  CasesState: '',
+  VaccMalaysia: '',
+  VaccState: '',
+}
