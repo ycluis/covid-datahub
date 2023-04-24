@@ -1,17 +1,19 @@
-const dotenv = require("dotenv");
-dotenv.config({ path: __dirname + "/.env" });
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config({ path: path.join(__dirname, '/.env') })
 
-const getLatestDataSet = require("./getLatestDataSet");
-const getFullDataSet = require("./getFullDataSet");
+const getLatestDataSet = require('./getLatestDataSet')
+const getFullDataSet = require('./getFullDataSet')
 
-(async () => {
+;(async () => {
   try {
-    await getFullDataSet();
-    await getLatestDataSet();
+    await getFullDataSet()
+    await getLatestDataSet()
 
-    process.exit();
+    console.log('\nWeb service completed.')
+    process.exit()
   } catch (err) {
-    console.log(err);
-    process.exit(1);
+    console.log(err)
+    process.exit(1)
   }
-})();
+})()
