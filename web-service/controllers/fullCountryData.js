@@ -37,8 +37,13 @@ const getFullCountryData = async (reqType) => {
 
     const parsedData = await promise
 
+    const dataToBeInsert = parsedData.map((data) => ({
+      date: data.date,
+      info: JSON.stringify(data),
+    }))
+
     // Postgres Insert
-    await insertIntoPostgres(parsedData, reqType)
+    await insertIntoPostgres(dataToBeInsert, reqType)
 
     // Redis Insert
     // await insertIntoRedis(parsedData, reqType)
@@ -55,13 +60,9 @@ const insertIntoPostgres = async (parsedData, reqType) => {
 
   if (latestDate === undefined) {
     if (reqType === COVID_SYMBOL) {
-      for (const data of parsedData) {
-        await query.insertCountryCovData(data.date, data)
-      }
+      await query.insertCountryCovData(parsedData)
     } else {
-      for (const data of parsedData) {
-        await query.insertCountryVaccData(data.date, data)
-      }
+      await query.insertCountryVaccData(parsedData)
     }
   }
 }

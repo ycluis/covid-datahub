@@ -36,8 +36,14 @@ const getFullStateData = async (reqType) => {
 
     const parsedData = await promise
 
+    const dataToBeInsert = parsedData.map((data) => ({
+      date: data.date,
+      state: data.state,
+      info: JSON.stringify(data),
+    }))
+
     // Postgres Insert
-    await insertIntoPostgres(parsedData, reqType)
+    await insertIntoPostgres(dataToBeInsert, reqType)
   } catch (err) {
     console.log(err)
   } finally {
@@ -51,13 +57,9 @@ const insertIntoPostgres = async (parsedData, reqType) => {
 
   if (latestDate === undefined) {
     if (reqType === COVID_SYMBOL) {
-      for (const data of parsedData) {
-        await query.insertStateCovData(data.date, data.state, data)
-      }
+      await query.insertStateCovData(parsedData)
     } else {
-      for (const data of parsedData) {
-        await query.insertStateVaccData(data.date, data.state, data)
-      }
+      await query.insertStateVaccData(parsedData)
     }
   }
 }

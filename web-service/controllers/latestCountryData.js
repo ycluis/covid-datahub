@@ -53,9 +53,9 @@ const insertIntoPostgres = async (parsedData, reqType) => {
 
   if (latestDate === undefined || latestDate.date !== parsedData.date) {
     if (reqType === process.env.COVID_SYMBOL) {
-      await query.insertCountryCovData(parsedData.date, parsedData)
+      await query.insertCountryCovData(parsedData, parsedData.date)
     } else {
-      await query.insertCountryVaccData(parsedData.date, parsedData)
+      await query.insertCountryVaccData(parsedData, parsedData.date)
     }
   }
 }
