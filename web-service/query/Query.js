@@ -1,44 +1,34 @@
 const PgClient = require('../config/db')
 
 class Query {
-  async insertCountryCovData(date, data) {
-    const dataMir = { ...data }
-    delete dataMir.date
-    await PgClient.CasesMalaysia.query().insert({
-      date,
-      info: JSON.stringify(dataMir),
-    })
+  async insertCountryCovData(data, date) {
+    if (!date || date === undefined) {
+      await PgClient.CasesMalaysia.query().insert(data)
+    } else {
+      await PgClient.CasesMalaysia.query().insert({
+        date,
+        info: JSON.stringify(data),
+      })
+    }
   }
 
-  async insertStateCovData(date, state, data) {
-    const dataMir = { ...data }
-    delete dataMir.date
-    delete dataMir.state
-    await PgClient.CasesState.query().insert({
-      date,
-      state,
-      info: JSON.stringify(dataMir),
-    })
+  async insertStateCovData(data) {
+    await PgClient.CasesState.query().insert(data)
   }
 
-  async insertCountryVaccData(date, data) {
-    const dataMir = { ...data }
-    delete dataMir.date
-    await PgClient.VaccMalaysia.query().insert({
-      date,
-      info: JSON.stringify(dataMir),
-    })
+  async insertCountryVaccData(data, date) {
+    if (!date || date === undefined) {
+      await PgClient.VaccMalaysia.query().insert(data)
+    } else {
+      await PgClient.VaccMalaysia.query().insert({
+        date,
+        info: JSON.stringify(data),
+      })
+    }
   }
 
-  async insertStateVaccData(date, state, data) {
-    const dataMir = { ...data }
-    delete dataMir.date
-    delete dataMir.state
-    await PgClient.VaccState.query().insert({
-      date,
-      state,
-      info: JSON.stringify(dataMir),
-    })
+  async insertStateVaccData(data) {
+    await PgClient.VaccState.query().insert(data)
   }
 
   async getLatestCountryCovData() {
