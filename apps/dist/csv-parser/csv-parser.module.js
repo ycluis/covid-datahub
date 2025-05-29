@@ -6,18 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DataSyncModule = void 0;
+exports.CsvParserModule = void 0;
 const common_1 = require("@nestjs/common");
-const data_sync_service_1 = require("./data-sync.service");
-const config_module_1 = require("../utils/config/config.module");
-const csv_parser_module_1 = require("../csv-parser/csv-parser.module");
-let DataSyncModule = class DataSyncModule {
+const csv_parser_service_1 = require("./csv-parser.service");
+let CsvParserModule = class CsvParserModule {
 };
-exports.DataSyncModule = DataSyncModule;
-exports.DataSyncModule = DataSyncModule = __decorate([
+exports.CsvParserModule = CsvParserModule;
+exports.CsvParserModule = CsvParserModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_module_1.ConfigModule, csv_parser_module_1.CsvParserModule],
-        providers: [data_sync_service_1.DataSyncService],
+        providers: [csv_parser_service_1.CsvParserService],
+        exports: [csv_parser_service_1.CsvParserService],
     })
-], DataSyncModule);
-//# sourceMappingURL=data-sync.module.js.map
+], CsvParserModule);
+//# sourceMappingURL=csv-parser.module.js.map

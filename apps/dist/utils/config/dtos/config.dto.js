@@ -14,6 +14,8 @@ const class_validator_1 = require("class-validator");
 class ConfigDto {
     SUPABASE_URL;
     SUPABASE_KEY;
+    CASE_MALAYSIA_URL;
+    CASE_STATE_URL;
 }
 exports.ConfigDto = ConfigDto;
 __decorate([
@@ -24,4 +26,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ConfigDto.prototype, "SUPABASE_KEY", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ConfigDto.prototype, "CASE_MALAYSIA_URL", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ConfigDto.prototype, "CASE_STATE_URL", void 0);
 //# sourceMappingURL=config.dto.js.map

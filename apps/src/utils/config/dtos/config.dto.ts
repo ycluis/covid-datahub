@@ -6,4 +6,10 @@ export class ConfigDto {
 
   @IsString()
   SUPABASE_KEY: string;
+
+  @IsString()
+  CASE_MALAYSIA_URL: string;
+
+  @IsString()
+  CASE_STATE_URL: string;
 }
