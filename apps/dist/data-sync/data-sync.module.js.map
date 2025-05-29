@@ -1,1 +1,0 @@
-{"version":3,"file":"data-sync.module.js","sourceRoot":"","sources":["../../src/data-sync/data-sync.module.ts"],"names":[],"mappings":";;;;;;;;;AAAA,2CAAwC;AACxC,2DAAsD;AACtD,iEAA6D;AAC7D,uEAAkE;AAM3D,IAAM,cAAc,GAApB,MAAM,cAAc;CAAG,CAAA;AAAjB,wCAAc;yBAAd,cAAc;IAJ1B,IAAA,eAAM,EAAC;QACN,OAAO,EAAE,CAAC,4BAAY,EAAE,mCAAe,CAAC;QACxC,SAAS,EAAE,CAAC,mCAAe,CAAC;KAC7B,CAAC;GACW,cAAc,CAAG"}
