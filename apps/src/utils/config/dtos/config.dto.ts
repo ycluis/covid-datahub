@@ -8,6 +8,9 @@ export class ConfigDto {
   SUPABASE_KEY: string;
 
   @IsString()
+  SUPABASE_CASE_MALAYSIA: string;
+
+  @IsString()
   CASE_MALAYSIA_URL: string;
 
   @IsString()
