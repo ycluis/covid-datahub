@@ -9,12 +9,15 @@ export class SupabaseService {
   constructor(private readonly configService: ConfigService) {
     this.client = createClient(
       this.configService.get('SUPABASE_URL'),
-      this.configService.get('SUPABASE_KEY'),
+      this.configService.get('SUPABASE_SERVICE_ROLE_KEY'),
     );
   }
 
-  async insert(table: string, records: any[]) {
-    const { data, error } = await this.client.from(table).insert(records);
+  async upsert(table: string, records: any[]) {
+    const { data, error } = await this.client
+      .from(table)
+      .upsert(records, { onConflict: 'date' });
+
     if (error) {
       throw new Error(`Supabase insert error: ${error.message}`);
     }

@@ -7,5 +7,6 @@ import { SupabaseModule } from 'src/supabase/supabase.module';
 @Module({
   imports: [ConfigModule, CsvParserModule, SupabaseModule],
   providers: [DataSyncService],
+  exports: [DataSyncService],
 })
 export class DataSyncModule {}

@@ -5,7 +5,7 @@ export class ConfigDto {
   SUPABASE_URL: string;
 
   @IsString()
-  SUPABASE_KEY: string;
+  SUPABASE_SERVICE_ROLE_KEY: string;
 
   @IsString()
   SUPABASE_CASE_MALAYSIA: string;
