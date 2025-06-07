@@ -14,9 +14,9 @@ export class SupabaseService {
   }
 
   async upsert(table: string, records: any[]) {
-    const { data, error } = await this.client
-      .from(table)
-      .upsert(records, { onConflict: 'date' });
+    const { data, error } = await this.client.from(table).upsert(records, {
+      onConflict: 'date,state',
+    });
 
     if (error) {
       throw new Error(`Supabase insert error: ${error.message}`);

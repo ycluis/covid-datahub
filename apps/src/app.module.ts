@@ -3,9 +3,8 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './utils/config/config.module';
-import { DataSyncModule } from './data-sync/data-sync.module';
-import { CsvParserModule } from './csv-parser/csv-parser.module';
-import { SupabaseService } from './supabase/supabase.service';
+import { DataSyncModule } from './jobs/data-sync/data-sync.module';
+import { CsvParserModule } from './utils/csv-parser/csv-parser.module';
 import { SupabaseModule } from './supabase/supabase.module';
 
 @Module({
@@ -17,6 +16,6 @@ import { SupabaseModule } from './supabase/supabase.module';
     SupabaseModule,
   ],
   controllers: [AppController],
-  providers: [AppService, SupabaseService],
+  providers: [AppService],
 })
 export class AppModule {}

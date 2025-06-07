@@ -8,11 +8,8 @@ export class ConfigDto {
   SUPABASE_SERVICE_ROLE_KEY: string;
 
   @IsString()
-  SUPABASE_CASE_MALAYSIA: string;
+  SUPABASE_DB_TABLE_CASES_MY: string;
 
   @IsString()
-  CASE_MALAYSIA_URL: string;
-
-  @IsString()
-  CASE_STATE_URL: string;
+  CASES_MY_DATA_URL: string;
 }

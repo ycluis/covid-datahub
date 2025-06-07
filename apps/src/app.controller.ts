@@ -1,6 +1,6 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
-import { DataSyncService } from './data-sync/data-sync.service';
+import { DataSyncService } from './jobs/data-sync/data-sync.service';
 
 @Controller()
 export class AppController {
