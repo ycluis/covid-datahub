@@ -21,7 +21,7 @@ export function normalizeCsvRow(row: Record<string, any>): Record<string, any> {
   for (const [key, value] of Object.entries(row)) {
     const loweredKey = key.toLowerCase();
 
-    if (loweredKey === 'date') {
+    if (loweredKey === 'date' || loweredKey === 'state') {
       normalized[loweredKey] = value;
     } else {
       const parsed = value === '' || value === undefined ? 0 : Number(value);

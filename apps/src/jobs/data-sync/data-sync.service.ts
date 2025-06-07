@@ -1,10 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 // import { Cron } from '@nestjs/schedule';
-import { ConfigService } from '../utils/config/config.service';
-import { CsvParserService } from 'src/csv-parser/csv-parser.service';
-import { SupabaseService } from 'src/supabase/supabase.service';
-import { validateCsvHeaders, normalizeCsvRow } from 'src/utils/normalize.util';
-import { CASES_MALAYSIA_HEADERS } from 'src/utils/csv-schema.constant';
+import { ConfigService } from '../../utils/config/config.service';
+import { CsvParserService } from '../../utils/csv-parser/csv-parser.service';
+import { SupabaseService } from '../../supabase/supabase.service';
+import {
+  validateCsvHeaders,
+  normalizeCsvRow,
+} from '../../utils/csv-parser/normalize.util';
+import { CASES_MALAYSIA_HEADERS } from '../../utils/csv-parser/csv-schema.constant';
 
 @Injectable()
 export class DataSyncService {
@@ -19,7 +22,7 @@ export class DataSyncService {
   // @Cron('43 10 * * *')
   async handleCron(): Promise<{ success: boolean }> {
     const records = await this.csvParserService.parseFromUrl(
-      this.configService.get('CASE_MALAYSIA_URL'),
+      this.configService.get('CASES_MY_DATA_URL'),
     );
 
     this.logger.debug(`Parsed ${records.length} records`);
@@ -31,7 +34,7 @@ export class DataSyncService {
     const normalizedRecords = records.map(normalizeCsvRow);
 
     await this.supabaseService.upsert(
-      this.configService.get('SUPABASE_CASE_MALAYSIA'),
+      this.configService.get('SUPABASE_DB_TABLE_CASES_MY'),
       normalizedRecords,
     );
 
