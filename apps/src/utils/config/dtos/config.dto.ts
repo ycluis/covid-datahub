@@ -12,4 +12,7 @@ export class ConfigDto {
 
   @IsString()
   CASES_MY_DATA_URL: string;
+
+  @IsString()
+  API_TOKEN: string;
 }

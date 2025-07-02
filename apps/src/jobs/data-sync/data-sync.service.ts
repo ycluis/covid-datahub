@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-// import { Cron } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import { ConfigService } from '../../utils/config/config.service';
 import { CsvParserService } from '../../utils/csv-parser/csv-parser.service';
 import { SupabaseService } from '../../supabase/supabase.service';
@@ -19,7 +19,9 @@ export class DataSyncService {
     private readonly supabaseService: SupabaseService,
   ) {}
 
-  // @Cron('43 10 * * *')
+  @Cron('0 0 * * *', {
+    timeZone: 'Asia/Singapore',
+  })
   async handleCron(): Promise<{ success: boolean }> {
     const records = await this.csvParserService.parseFromUrl(
       this.configService.get('CASES_MY_DATA_URL'),
