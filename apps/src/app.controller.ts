@@ -1,6 +1,7 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { DataSyncService } from './jobs/data-sync/data-sync.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @Controller()
 export class AppController {
@@ -17,6 +18,7 @@ export class AppController {
   }
 
   @Get('sync')
+  @UseGuards(AuthGuard)
   async syncData() {
     const result = await this.dataSyncService.handleCron();
     return JSON.stringify(result);
