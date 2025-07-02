@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs"]
+
+[phases.install]
+cmds = ["cd apps && npm install"]
+
+[phases.build]
+cmds = ["cd apps && npm run build"]
+
+[start]
+cmd = "node apps/dist/main"
