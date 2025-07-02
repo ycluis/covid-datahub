@@ -8,4 +8,4 @@ cmds = ["cd apps && npm install"]
 cmds = ["cd apps && npm run build"]
 
 [start]
-cmd = "node apps/dist/main"
+cmd = "node dist/main"
