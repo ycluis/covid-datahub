@@ -4,6 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
+    "build": "cd apps && npm install && npm run build",
+    "start": "cd apps && npm run start:prod",
+    "start:dev": "cd apps && npm run start:dev"
   },
   "repository": {
     "type": "git",
