@@ -3,11 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "main": "",
-  "scripts": {
-    "build": "cd apps && npm install && npm run build",
-    "start": "cd apps && npm run start:prod",
-    "start:dev": "cd apps && npm run start:dev"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ycluis/my-covid-datahub.git"
